@@ -1,0 +1,21 @@
+@import "../../mixins.scss";
+.Ratingbox{
+    width: 30%;
+    height: 15%;
+    z-index: 0;
+    background:linear-gradient(to bottom left, #FECA00 38%, #D07800 74%, #FF9300 91%);
+    border-radius: 4px;
+    @include md{
+        width: 20%;
+        height: 10%;
+    }
+    
+    .Rating{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-weight: 600;
+    }
+}
