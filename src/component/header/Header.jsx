@@ -45,7 +45,6 @@ const Header = () => {
     setmobileMenu(false);
   };
   const headerscroll = () => {
-    console.log()
     if (window.scrollY > 200) {
       if (window.scrollY > lastscroll &&!mobileMenu) {
         setshow("hide");
@@ -70,7 +69,9 @@ const Header = () => {
   return (
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
-        <div>
+        <div
+        className="logo"
+        onClick={()=>{navigate('/')}}>
           <img src={logo} alt="" />
         </div>
         <ul className="menuItems">

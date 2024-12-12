@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 export const homeSlice = createSlice({
     name: "home",
     initialState: {
@@ -15,6 +14,5 @@ export const homeSlice = createSlice({
         },
     },
 });
-
-export const { getApiConfiguration, getGenres } = homeSlice.actions;
+export const { getApiConfiguration, getGenres} = homeSlice.actions;
 export default homeSlice.reducer;

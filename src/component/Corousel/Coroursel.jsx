@@ -3,19 +3,16 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
+import CorourselItem from "./CorourselItem";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import dayjs from "dayjs";
-import Img from "../lazyLoadlmage/img";
 import ContentWrapper from "../contentWrapper/contentWrapper";
-import Rating from "../Ratingbox/Rating";
 import PosterFallback from "../../assets/__MACOSX/._no-poster.png";
-import Genres from "../genres/genre";
+
 import "./Coroursel.scss";
 
 const Coroursel = ({ data, loading, endpoint }) => {
   const carouselContainer = useRef();
-  const navigate = useNavigate();
   const { url } = useSelector((state) => state.home);
   const navigation = (dir) => {
     const container = carouselContainer.current;
@@ -59,25 +56,7 @@ const Coroursel = ({ data, loading, endpoint }) => {
                   ? url.poster + item.poster_path
                   : PosterFallback;
                 return (
-                  <div
-                    key={item.id}
-                    className="carouselItem"
-                    onClick={() => {
-                      navigate(`${item.media_type || endpoint}/${item.id}`);
-                    }}
-                  >
-                    <div className="posterBlock">
-                      <Img src={posterUrl} />
-                      <Rating rating={item.vote_average} />
-                      <Genres data={item.genre_ids} />
-                    </div>
-                    <div className="textBlock">
-                      <span className="title">{item.title || item.name}</span>
-                      <span className="data">
-                        {dayjs(item.release_date).format("MMM D, YYYY")}
-                      </span>
-                    </div>
-                  </div>
+                  <CorourselItem item={item} posterUrl={posterUrl} endpoint={endpoint}/>
                 );
               })}
             </div>

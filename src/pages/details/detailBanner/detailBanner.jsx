@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
-
 import "./detailBanner.scss";
-
 import ContentWrapper from "../../../component/contentWrapper/contentWrapper.jsx";
 import useFetch from "../../../costumhook/useFetch.jsx";
 import Genres from "../../../component/genres/genre.jsx";

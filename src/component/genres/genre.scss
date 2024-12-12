@@ -1,14 +1,24 @@
+@import '../../mixins.scss';
 .genres {
     display: flex;
     gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
      .genre {
-        display: flex;
-        justify-content: center;
-        background-color:#da2f68;
-        padding: 3px 5px;
-        font-size: 12px;
-        border-radius: 4px;
-        color: white;
-        white-space: nowrap;
+        position: relative;
+        display: none;
+        @include md{
+            display: flex;
+            justify-content: center;
+            background-color:#da2f68;
+            padding: 3px 5px;
+            font-size: 12px;
+            border-radius: 4px;
+            color: white;
+            white-space: nowrap;
+        }
     }
+
 }

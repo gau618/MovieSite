@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 import { fetchDataFromApi } from "./utils/api";
-import { getApiConfiguration,getGenres } from "./store/homeSilce";
+import { getApiConfiguration, getGenres } from "./store/homeSilce";
 import { useDispatch, useSelector } from "react-redux";
 import Home from "./pages/home/home";
 import Footer from "./component/footer/Footer";
@@ -23,6 +23,7 @@ function App() {
       dispatch(getApiConfiguration(url));
     });
   };
+
   useEffect(() => {
     apiTesting();
     genresCall();
@@ -34,16 +35,16 @@ function App() {
     let allGenres = {};
 
     endPoints.forEach((url) => {
-        promises.push(fetchDataFromApi(`/genre/${url}/list`));
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
     });
 
     const data = await Promise.all(promises);
     data.map(({ genres }) => {
-        return genres.map((item) => (allGenres[item.id] = item));
+      return genres.map((item) => (allGenres[item.id] = item));
     });
 
     dispatch(getGenres(allGenres));
-};
+  };
 
   return (
     <>
@@ -51,25 +52,16 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path="/" element={<Home></Home>} />
-        </Routes>
-        <Routes>
-          <Route path="/" element={<Footer></Footer>} />
-        </Routes>
-        <Routes>
-          <Route path="/:mediaType/:id" element={<Details></Details>}/>
-        </Routes>
-        <Routes>
-          <Route
-            path="/search/:query"
-            element={<SearchResult></SearchResult>}/>
-        </Routes>
-        <Routes>
+
+          <Route path="/:mediaType/:id" element={<Details></Details>} />
+
+          <Route path="/search/:query" element={<SearchResult></SearchResult>}/>
+
           <Route path="/explore/:mediaType" element={<Explore></Explore>} />
-        </Routes>
-        <Routes>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+        <Footer></Footer>
       </BrowserRouter>
     </>
   );

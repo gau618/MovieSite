@@ -1,3 +1,4 @@
+@import '../../mixins.scss';
 .switchingTabs {
     height: 34px;
     background-color: white;
@@ -13,7 +14,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100px;
+            width: 70px;
             color: var(--black);
             font-size: 14px;
             position: relative;
@@ -24,17 +25,29 @@
                 color: white;
             }
         }
+
+        @include md{
+            .tabItem {
+            width: 100px;
+            }
+        }
+
         .activeted{
             color: white;
         }
         .movingBg {
             height: 30px;
-            width: 100px;
+            width: 70px;
             border-radius: 15px;
            background: var(--bluegradient);
             position: absolute;
             left: 0;
             transition: left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.4s;
+        }
+        @include md{
+            .movingBg {
+            width: 100px;
+            }
         }
     }
 }
