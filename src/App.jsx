@@ -11,6 +11,7 @@ import Details from "./pages/details/details";
 import SearchResult from "./pages/searchResults/SearchResult";
 import Explore from "./pages/explore/explore";
 import NotFound from "./pages/404/404";
+import Person from "./pages/person/Person";
 function App() {
   const dispatch = useDispatch();
   const apiTesting = () => {
@@ -58,6 +59,8 @@ function App() {
           <Route path="/search/:query" element={<SearchResult></SearchResult>}/>
 
           <Route path="/explore/:mediaType" element={<Explore></Explore>} />
+
+          <Route path="/person/:id" element={<Person />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

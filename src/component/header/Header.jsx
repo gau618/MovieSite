@@ -6,6 +6,9 @@ import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
 import logo from "../../assets/movix-logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { aiParseSearch } from "../../utils/ai";
+import { useSelector } from "react-redux";
+import { mapGenreNamesToIds } from "../../utils/ai";
 
 const Header = () => {
   const [show, setshow] = useState("top");
@@ -14,15 +17,41 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(true);
   const [Query, setQuery] = useState("");
   const [showSearch1, setShowSearch1] = useState(true);
+  const [aiMode, setAiMode] = useState(false);
+  const { genres } = useSelector((state) => state.home);
   const navigate = useNavigate();
   const startlocation =useLocation();
   const searchqueryhandler = (event) => {
     if (event.key === "Enter" && Query.length > 0) {
-      navigate(`/search/${Query}`);
+      if (aiMode) {
+        handleAiSearch(Query);
+      } else {
+        navigate(`/search/${Query}`);
+      }
       setTimeout(() => {
         setShowSearch(false);
         setShowSearch1(false);
       }, 1000);
+    }
+  };
+  const handleAiSearch = async (q) => {
+    try {
+      const parsed = await aiParseSearch(q);
+      const mediaType = parsed?.mediaType || "movie";
+      const names = parsed?.filters?.with_genres_names || [];
+      const ids = mapGenreNamesToIds(genres, names);
+      const year = parsed?.filters?.year;
+      const vote = parsed?.filters?.vote_average_gte;
+      const sort_by = parsed?.filters?.sort_by;
+      const searchParams = new URLSearchParams();
+      if (ids.length) searchParams.set("with_genres", ids.join(","));
+      if (year) searchParams.set("year", String(year));
+      if (vote) searchParams.set("vote_average_gte", String(vote));
+      if (sort_by) searchParams.set("sort_by", sort_by);
+      navigate(`/explore/${mediaType}?${searchParams.toString()}`);
+    } catch (e) {
+      // Fallback to plain search on error
+      navigate(`/search/${q}`);
     }
   };
   const searchInput = () => {
@@ -92,6 +121,11 @@ const Header = () => {
             />
           </li>
           <li className="menuItem">
+            <button className="aiToggle" onClick={() => setAiMode((v) => !v)}>
+              {aiMode ? "AI: On" : "AI: Off"}
+            </button>
+          </li>
+          <li className="menuItem">
             <HiOutlineSearch onClick={searchInput} />
           </li>
         </ul>
@@ -104,6 +138,9 @@ const Header = () => {
             }}
             className={`headersearch ${showSearch1 ? "Displaysearch" : ""}`}
           />
+          <button className="aiToggle" onClick={() => setAiMode((v) => !v)}>
+            {aiMode ? "AI: On" : "AI: Off"}
+          </button>
           <HiOutlineSearch className="headersvg" onClick={searchInput1} />
           {mobileMenu ? (
             <VscChromeClose

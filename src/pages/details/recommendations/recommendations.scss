@@ -1,0 +1,21 @@
+@import "../../../mixins.scss";
+
+.recommendationsSection {
+  margin: 20px 0 30px;
+  .sectionHeading {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  // Align the carousel with details page content by removing extra side padding
+  .carousel {
+    .contentWrapper { padding-left: 0; padding-right: 0; }
+    .carouselItems { margin-left: 0; margin-right: 0; padding: 0; }
+    .loadingSkeleton { margin-left: 0; margin-right: 0; padding: 0; }
+    .carouselItems .carouselItem { margin-left: 0; }
+    // bring arrows closer to the edges inside details layout
+    .carouselLeftNav { left: 12px; }
+    .carouselRightNav { right: 12px; }
+  }
+}

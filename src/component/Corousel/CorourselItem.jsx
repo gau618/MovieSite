@@ -5,11 +5,11 @@ import Img from "../lazyLoadlmage/img";
 import { useNavigate } from "react-router-dom";
 import Genres from "../genres/genre";
 import Rating from "../Ratingbox/Rating";
-export default function CorourselItem({item,posterUrl,setSelectedMovie,endpoint}) {
+export default function CorourselItem({ item, posterUrl, setSelectedMovie, endpoint }) {
     const navigate = useNavigate();
-    const handleHover=()=>{
-      setSelectedMovie([item]);
-    } 
+    const handleHover = () => {
+      if (typeof setSelectedMovie === 'function') setSelectedMovie([item]);
+    }
     //console.log(item);
   return (
     <div
@@ -29,7 +29,9 @@ export default function CorourselItem({item,posterUrl,setSelectedMovie,endpoint}
       <div className="textBlock">
         <span className="title">{item?.title || item?.name}</span>
         <span className="data">
-          {dayjs(item?.release_date).format("MMM D, YYYY")}
+          {dayjs(item?.release_date || item?.first_air_date).isValid()
+            ? dayjs(item?.release_date || item?.first_air_date).format("MMM D, YYYY")
+            : ""}
         </span>
       </div>
     </div>

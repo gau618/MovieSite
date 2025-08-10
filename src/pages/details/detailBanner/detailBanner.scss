@@ -7,7 +7,7 @@
     @include md {
         margin-bottom: 0;
         padding-top: 120px;
-        min-height: 700px;
+    min-height: 600px;
     }
     .backdrop-img {
         width: 100%;
@@ -56,31 +56,36 @@
                 width: 100%;
                 display: block;
                 border-radius: 12px;
-                @include md {
-                    max-width: 350px;
-                }
+                @include md { max-width: 360px; }
+                @include lg { max-width: 420px; }
             }
         }
         .right {
             color: white;
             .title {
-                font-size: 28px;
-                line-height: 40px;
+                font-size: 24px;
+                line-height: 34px;
                 @include md {
-                    font-size: 34px;
-                    line-height: 44px;
+                    font-size: 30px;
+                    line-height: 40px;
                 }
             }
             .subtitle {
-                font-size: 16px;
-                line-height: 24px;
+                font-size: 14px;
+                line-height: 22px;
                 margin-bottom: 15px;
                 font-style: italic;
                 opacity: 0.5;
                 @include md {
-                    font-size: 20px;
-                    line-height: 28px;
+                    font-size: 16px;
+                    line-height: 24px;
                 }
+            }
+            // inline recommendations removed per request
+            .aiSummary {
+                margin: 8px 0 16px;
+                .aiLine { font-size: 16px; opacity: 0.9; }
+                .aiWhy { font-size: 14px; opacity: 0.8; margin-top: 4px; }
             }
             .genres {
                 margin-bottom: 25px;
@@ -89,13 +94,13 @@
             .overview {
                 margin-bottom: 25px;
                 .heading {
-                    font-size: 24px;
+                    font-size: 20px;
                     margin-bottom: 10px;
                 }
                 .description {
-                    line-height: 24px;
+                    line-height: 22px;
                     @include md {
-                        padding-right: 100px;
+                        padding-right: 60px;
                     }
                 }
             }
@@ -115,13 +120,13 @@
                 gap: 20px;
                 cursor: pointer;
                 svg {
-                    width: 60px;
+                    width: 64px;
                     @include md {
-                        width: 80px;
+                        width: 72px;
                     }
                 }
                 .text {
-                    font-size: 20px;
+                    font-size: 16px;
                     transition: all 0.7s ease-in-out;
                 }
                 .triangle {
@@ -162,17 +167,23 @@
 
             .info {
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 15px 0;
-                display: flex;
+                padding: 12px 0 8px;
+                display: grid;
+                grid-template-columns: 1fr;
+                row-gap: 6px;
+                @include md {
+                  grid-template-columns: repeat(2, minmax(0,1fr));
+                  column-gap: 12px;
+                }
                 .infoItem {
-                    margin-right: 10px;
                     display: flex;
-                    flex-flow: row wrap;
+                    flex-wrap: wrap;
+                    gap: 6px;
+                    min-width: 0;
                 }
                 .text {
-                    margin-right: 10px;
-                    opacity: 0.5;
-                    line-height: 24px;
+                    opacity: 0.7;
+                    line-height: 22px;
                     &.bold {
                         font-weight: 600;
                         opacity: 1;

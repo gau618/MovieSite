@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import "./detailBanner.scss";
@@ -15,9 +16,11 @@ import VideoPopup from "../../../component/videoPopup/VideoPopup.jsx";
 const DetailsBanner = ({ video, crew }) => {
   const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  const navigate = useNavigate();
 
   const { mediaType, id } = useParams();
   const { data, loading } = useFetch(`/${mediaType}/${id}`);
+  const { data: recosData } = useFetch(`/${mediaType}/${id}/recommendations`);
 
   const { url } = useSelector((state) => state.home);
 
@@ -33,6 +36,7 @@ const DetailsBanner = ({ video, crew }) => {
     const minutes = totalMinutes % 60;
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
+
 
   return (
     <div className="detailsBanner">
@@ -50,7 +54,7 @@ const DetailsBanner = ({ video, crew }) => {
                     {data.poster_path ? (
                       <Img
                         className="posterImg"
-                        src={url.backdrop + data.poster_path}
+                        src={url.poster + data.poster_path}
                       />
                     ) : (
                       <Img className="posterImg" src={PosterFallback} />
@@ -63,6 +67,7 @@ const DetailsBanner = ({ video, crew }) => {
                       ).format("YYYY")})`}
                     </div>
                     <div className="subtitle">{data.tagline}</div>
+                    {/* Inline recommendation chips removed as requested */}
 
                     <Genres data={_genres} />
 

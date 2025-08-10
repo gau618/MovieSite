@@ -1,0 +1,99 @@
+@import "../../mixins.scss";
+
+.personPage {
+  // Clear the fixed header and avoid name being hidden
+  padding-top: 100px;
+  @include md {
+    padding-top: 120px;
+  }
+  .personHeader {
+    display: flex;
+    gap: 20px;
+    margin: 0 0 10px; // remove extra top margin since page has top padding
+    @include md {
+      gap: 30px;
+      margin: 0 0 12px;
+    }
+    .avatar {
+      display: block;
+      width: 240px;
+      flex: 0 0 240px; // don't shrink; keep intended width
+      aspect-ratio: 2/3;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      @include md {
+        width: 360px; 
+        flex-basis: 360px; 
+      }
+      @include lg {
+        width: 380px; 
+        flex-basis: 380px; 
+      }
+      .lazy-load-image-background,
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // fill frame, crop minimally
+        object-position: center;
+      }
+    }
+    .meta {
+      color: #fff;
+      flex: 1 1 auto; // let text take the remaining width
+      min-width: 0; // prevent overflow clipping
+      .name {
+        font-size: 26px;
+        line-height: 1.2;
+        @include md {
+          font-size: 30px;
+        }
+      }
+      .dept {
+        opacity: 0.8;
+        margin-top: 4px;
+      }
+      .facts {
+        margin-top: 10px;
+        opacity: 0.9;
+        display: grid;
+        gap: 6px;
+      }
+      .label {
+        opacity: 0.7;
+        margin-right: 6px;
+      }
+      .bio {
+        margin-top: 14px;
+      }
+      .bio .heading {
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+      .bio p {
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+    }
+  }
+  .knownForSection {
+    margin: 10px 0 24px;
+  }
+  .knownForSection .sectionHeading {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .knownForSection::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.06)
+    );
+    margin: 8px 0 16px;
+  }
+}

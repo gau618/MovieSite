@@ -1,0 +1,47 @@
+@import "../../../mixins.scss";
+
+.videosSection {
+  margin: 30px 0;
+  .sectionHeading {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    @include md {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
+    }
+  }
+  .videoItem {
+    color: #fff;
+    cursor: pointer;
+    min-width: 0; // allow grid items to shrink and not overflow
+    .thumb {
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 16/9;
+      .lazy-load-image-background, img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+    .title {
+      font-size: 13px;
+      margin-top: 8px;
+      opacity: .9;
+      line-height: 1.3;
+      line-clamp: 2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../../costumhook/useFetch";
 import { useSelector } from "react-redux";
 import CorourselItem from "../../component/Corousel/CorourselItem";
-import PosterFallback from "../../assets/__MACOSX/._no-poster.png";
+import PosterFallback from "../../assets/no-poster.png";
 import Img from "../../component/lazyLoadlmage/img";
 import "../home/homeBanner/heroBanner.scss";
 
@@ -68,18 +68,18 @@ const SearchResult = () => {
 
       {/* Carousel Items */}
       <div className="itemcontainer">
-        {data?.results?.map((item) => {
+    {data?.results?.map((item) => {
           const posterUrl = item.poster_path
             ? url.poster + item.poster_path
             : PosterFallback;
 
           return (
             <CorourselItem
-              key={item.id}
+      key={`${item.media_type || 'movie'}-${item.id}`}
               item={item}
               posterUrl={posterUrl}
               setSelectedMovie={setSelectedMovie}
-              endpoint={"movie"}
+      endpoint={item.media_type || "movie"}
             />
           );
         })}

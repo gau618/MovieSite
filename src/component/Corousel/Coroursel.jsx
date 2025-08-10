@@ -7,7 +7,7 @@ import CorourselItem from "./CorourselItem";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ContentWrapper from "../contentWrapper/contentWrapper";
-import PosterFallback from "../../assets/__MACOSX/._no-poster.png";
+import PosterFallback from "../../assets/no-poster.png";
 
 import "./Coroursel.scss";
 

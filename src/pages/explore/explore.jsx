@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./explore.scss";
 import { fetchDataFromApi } from "../../utils/api";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Img from "../../component/lazyLoadlmage/img";
 import CorourselItem from "../../component/Corousel/CorourselItem";
@@ -11,59 +11,56 @@ import PosterFallback from "../../assets/no-poster.png"; // Adjusted path
 const Explore = () => {
   const [data, setData] = useState([]);
   const [myMovies, setMyMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedMovie, setSelectedMovie] = useState([]); // keep as array [item]
   const [loading, setLoading] = useState(false);
   const { mediaType } = useParams();
+  const location = useLocation();
   const { url } = useSelector((state) => state.home);
   
   useEffect(() => {
+    let cancelled = false;
     setLoading(true);
-    const fetchPopularAndChange = async () => {
+    const params = new URLSearchParams(location.search);
+    const with_genres = params.get("with_genres");
+    const year = params.get("year");
+    const vote_average_gte = params.get("vote_average_gte");
+    const sort_by = params.get("sort_by");
+
+    const run = async () => {
       try {
-        const [popularResp, changeResp] = await Promise.all([
-          fetchDataFromApi(`/${mediaType}/popular`),
-          fetchDataFromApi(`/${mediaType}/changes`)
-        ]);
-  
-        // Combine the results
-        const combinedData = [
-          ...(popularResp.results || []),
-          ...(changeResp.results || [])
-        ];
-  
-        setData(combinedData);
+        let results = [];
+        if (with_genres || year || vote_average_gte || sort_by) {
+          const discoverParams = { with_genres: with_genres || undefined, sort_by: sort_by || undefined };
+          if (vote_average_gte) discoverParams["vote_average.gte"] = vote_average_gte;
+          if (year) {
+            if (mediaType === "movie") discoverParams.primary_release_year = year;
+            if (mediaType === "tv") discoverParams.first_air_date_year = year;
+          }
+          const resp = await fetchDataFromApi(`/discover/${mediaType}`, discoverParams);
+          results = resp?.results || [];
+        } else {
+          const popularResp = await fetchDataFromApi(`/${mediaType}/popular`);
+          results = popularResp?.results || [];
+        }
+
+        if (!cancelled) {
+          setData(results);
+          setMyMovies(results);
+          setSelectedMovie(results?.[0] ? [results[0]] : []);
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (!cancelled) console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
-  
-    fetchPopularAndChange();
-  }, [mediaType]);
-  
 
-  useEffect(() => {
-    if (data.length > 0) {
-      const fetchMovieDetails = async () => {
-        try {
-          const moviesPromises = data.map((item) =>
-            fetchDataFromApi(`/${mediaType}/${item?.id}`)
-          );
-          const movies = await Promise.all(moviesPromises);
-          setMyMovies(movies);
-          setSelectedMovie(movies);
-        } catch (error) {
-          console.error("Error fetching movie details:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchMovieDetails();
-    }
-  }, [data, mediaType]);
-  console.log(myMovies);
+    run();
+    return () => { cancelled = true; };
+  }, [mediaType, location.search]);
+  
+  // myMovies are now the list items directly; CorouselItem hover will still update selectedMovie
+  // console.log(myMovies);
   const skItem = () => (
     <div className="skeletonItem">
       <div className="posterBlock skeleton"></div>
