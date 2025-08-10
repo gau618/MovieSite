@@ -63,7 +63,7 @@ const Explore = () => {
       fetchMovieDetails();
     }
   }, [data, mediaType]);
-  console.log(selectedMovie);
+  console.log(myMovies);
   const skItem = () => (
     <div className="skeletonItem">
       <div className="posterBlock skeleton"></div>
