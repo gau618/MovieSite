@@ -1,106 +1,103 @@
 import React from "react";
 import "./Footer.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import ContentWrapper from "../contentWrapper/contentWrapper";
+import Logo from "../../assets/movix-logo.svg";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-container">
-        {/* Company Section */}
-        <div className="footer-column">
-          <h4>Company</h4>
-          <ul>
-            <li>
-              <a href="#about-us">About Us</a>
-            </li>
-            <li>
-              <a href="#services">Our Services</a>
-            </li>
-            <li>
-              <a href="#privacy-policy">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#affiliate">Affiliate Program</a>
-            </li>
-          </ul>
-        </div>
+      <ContentWrapper>
+        <div className="footer-grid">
+          {/* Brand */}
+          <div className="brand">
+            <img src={Logo} alt="MovieSite" className="logo" />
+            <p className="tagline">
+              Discover and track your favorite movies and shows.
+            </p>
+            <div className="social-icons">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
 
-        {/* Get Help Section */}
-        <div className="footer-column">
-          <h4>Get Help</h4>
-          <ul>
-            <li>
-              <a href="#faq">FAQ</a>
-            </li>
-            <li>
-              <a href="#shipping">Shipping</a>
-            </li>
-            <li>
-              <a href="#returns">Returns</a>
-            </li>
-            <li>
-              <a href="#order-status">Order Status</a>
-            </li>
-            <li>
-              <a href="#payment">Payment Options</a>
-            </li>
-          </ul>
-        </div>
+          {/* Explore */}
+          <div className="links">
+            <h4>Explore</h4>
+            <ul>
+              <li>
+                <a href="#movies">Movies</a>
+              </li>
+              <li>
+                <a href="#tv-shows">TV Shows</a>
+              </li>
+              <li>
+                <a href="#latest">Latest</a>
+              </li>
+              <li>
+                <a href="#top-rated">Top Rated</a>
+              </li>
+            </ul>
+          </div>
 
-        {/* Online Shop Section */}
-        <div className="footer-column">
-          <h4>Online Shop</h4>
-          <ul>
-            <li>
-              <a href="#movies">Movies</a>
-            </li>
-            <li>
-              <a href="#tv-shows">TV Shows</a>
-            </li>
-            <li>
-              <a href="#latest-releases">Latest Releases</a>
-            </li>
-            <li>
-              <a href="#top-rated">Top Rated</a>
-            </li>
-          </ul>
-        </div>
+          {/* Support */}
+          <div className="links">
+            <h4>Support</h4>
+            <ul>
+              <li>
+                <a href="#faq">FAQ</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+              <li>
+                <a href="#terms">Terms</a>
+              </li>
+              <li>
+                <a href="#privacy">Privacy</a>
+              </li>
+            </ul>
+          </div>
 
-        {/* Social Media Section */}
-        <div className="footer-column">
-          <h4>Follow Us</h4>
-          <div className="social-icons">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
+          {/* Newsletter */}
+          <div className="newsletter">
+            <h4>Newsletter</h4>
+            <form onSubmit={(e) => e.preventDefault()} className="subscribe">
+              <input type="email" placeholder="Your email" aria-label="Email" />
+              <button type="submit">Subscribe</button>
+            </form>
           </div>
         </div>
-      </div>
+        <div className="footer-bottom">
+          © {new Date().getFullYear()} MovieSite. All rights reserved.
+        </div>
+      </ContentWrapper>
     </footer>
   );
 };

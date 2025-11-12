@@ -25,7 +25,8 @@
       overflow: hidden;
       width: 100%;
       aspect-ratio: 16/9;
-      .lazy-load-image-background, img {
+      .lazy-load-image-background,
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -35,7 +36,7 @@
     .title {
       font-size: 13px;
       margin-top: 8px;
-      opacity: .9;
+      opacity: 0.9;
       line-height: 1.3;
       line-clamp: 2;
       display: -webkit-box;

@@ -56,7 +56,11 @@ const Coroursel = ({ data, loading, endpoint }) => {
                   ? url.poster + item.poster_path
                   : PosterFallback;
                 return (
-                  <CorourselItem item={item} posterUrl={posterUrl} endpoint={endpoint}/>
+                  <CorourselItem
+                    item={item}
+                    posterUrl={posterUrl}
+                    endpoint={endpoint}
+                  />
                 );
               })}
             </div>

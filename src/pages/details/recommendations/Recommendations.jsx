@@ -17,7 +17,7 @@ const Recommendations = () => {
     <div className="recommendationsSection">
       <ContentWrapper>
         <h3 className="sectionHeading">Recommendations</h3>
-  <Coroursel data={results} loading={loading} endpoint={mediaType} />
+        <Coroursel data={results} loading={loading} endpoint={mediaType} />
       </ContentWrapper>
     </div>
   );

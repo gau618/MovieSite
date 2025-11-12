@@ -8,7 +8,8 @@ const Genres = ({ data }) => {
     <div className="genres">
       {items.slice(0, 2).map((g, idx) => {
         const id = typeof g === "object" ? g?.id : g;
-        const name = genres?.[id]?.name || (typeof g === "object" ? g?.name : null);
+        const name =
+          genres?.[id]?.name || (typeof g === "object" ? g?.name : null);
         if (!id || !name) return null;
         return (
           <div key={`${id}-${idx}`} className="genre">

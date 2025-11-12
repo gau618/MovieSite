@@ -1,41 +1,46 @@
 @import "../../mixins.scss";
 
 .detailsPage {
-	display: block;
-	.sectionHeading {
-		font-weight: 700;
-		letter-spacing: 0.2px;
-	}
+  display: block;
+  .sectionHeading {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
 
-	// tighten vertical rhythm between sections
-	.castSection {
-		margin-top: 18px;
-		margin-bottom: 8px;
-	}
-	.videosSection {
-		margin-top: 8px;
-		margin-bottom: 24px;
-	}
+  // tighten vertical rhythm between sections
+  .castSection {
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+  .videosSection {
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
 
-	// subtle divider between sections using a pseudo after Cast
-	.castSection + .videosSection {
-		position: relative;
-	}
-	.castSection + .videosSection::before {
-		content: "";
-		display: block;
-		height: 1px;
-		background: linear-gradient(to right, rgba(255,255,255,0.06), rgba(255,255,255,0.16), rgba(255,255,255,0.06));
-		margin: 12px 0 16px;
-	}
+  // subtle divider between sections using a pseudo after Cast
+  .castSection + .videosSection {
+    position: relative;
+  }
+  .castSection + .videosSection::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.06)
+    );
+    margin: 12px 0 16px;
+  }
 
-	// adjust overall side padding via content wrapper on smaller screens
-	.contentWrapper {
-		padding-left: 16px;
-		padding-right: 16px;
-		@include md {
-			padding-left: 20px;
-			padding-right: 20px;
-		}
-	}
+  // adjust overall side padding via content wrapper on smaller screens
+  .contentWrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+    @include md {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
 }

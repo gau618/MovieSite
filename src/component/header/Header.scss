@@ -1,150 +1,141 @@
 @import "../../mixins.scss";
 .header {
-    position: fixed;
-    transform: translateY(0);
-    width: 100%;
-    height: 60px;
-    z-index: 5;
+  position: fixed;
+  transform: translateY(0);
+  width: 100%;
+  height: 60px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  transition: all ease 0.5s;
+  &.top {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+  }
+  &.show {
+    background-color: var(--black3);
+  }
+  &.hide {
+    transform: translateY(-60px);
+  }
+
+  .contentWrapper {
     display: flex;
     align-items: center;
-    transition: all ease 0.5s;
-   &.top {
-        background: rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(3.5px);
-        -webkit-backdrop-filter: blur(3.5px);
+    justify-content: space-between;
+  }
+  .logo {
+    cursor: pointer;
+    img {
+      height: 50px;
     }
-    &.show {
-        background-color: var(--black3);
+  }
+  .menuItems {
+    list-style-type: none;
+    display: none;
+    align-items: center;
+    @include md {
+      display: flex;
     }
-    &.hide {
-        transform: translateY(-60px);
-    }
+    .menuItem {
+      height: 60px;
+      display: flex;
 
-    .contentWrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      align-items: center;
+      margin: 0 15px;
+      color: white;
+      font-weight: 500;
+      position: relative;
+      &.searchIcon {
+        margin-right: 0;
+      }
+      svg {
+        font-size: 18px;
+      }
+      cursor: pointer;
+      &:hover {
+        color: var(--pink);
+      }
     }
-    .logo {
-        cursor: pointer;
-        img {
-            height: 50px;
-        }
+    .headersearch {
+      background-color: transparent;
+      outline: none;
+      border-radius: 6px;
+      border: solid 1px rgba(255, 255, 255, 0.6);
+      color: white;
+      height: 32px;
+      width: 200px;
+      padding: 0 10px;
+      font-size: 14px;
     }
+    .Displaysearch {
+      display: none;
+    }
+  }
+
+  .mobileMenuItems {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    @include md {
+      display: none;
+    }
+    svg {
+      font-size: 18px;
+      color: white;
+    }
+    .headersearch {
+      background-color: transparent;
+      outline: none;
+      border-radius: 6px;
+      border: solid 1px rgba(255, 255, 255, 0.6);
+      color: white;
+      height: 30px;
+      padding: 0 10px;
+      font-size: 14px;
+      width: 160px;
+    }
+    .Displaysearch {
+      display: none;
+    }
+  }
+
+  &.mobileView {
+    background: var(--black3);
     .menuItems {
-        list-style-type: none;
-        display: none;
-        align-items: center;
-        @include md {
-            display: flex;
-        }
-        .menuItem {
-            height: 60px;
-            display: flex;
-
-        .aiToggle {
-            padding: 6px 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: transparent;
-            color: #fff;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-            align-items: center;
-            margin: 0 15px;
-            color: white;
-            font-weight: 500;
-            position: relative;
-            &.searchIcon {
-                margin-right: 0;
-            }
-            svg {
-                font-size: 18px;
-            }
-            cursor: pointer;
-            &:hover {
-                color: var(--pink);
-            }
-        }
-        .headersearch{
-            background-color:transparent;
-            outline: none;
-            border-radius: 6px;
-            border: solid 1px rgba(255,255,255,0.6);
-            color:white;
-            height: 32px;
-            width: 200px;
-            padding: 0 10px;
-            font-size: 14px;
-        }
-        .Displaysearch{
-            display: none;
-        }
-    }
-
-    .mobileMenuItems {
+      display: flex;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background: var(--black3);
+      flex-direction: column;
+      width: 100%;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      animation: mobileMenu 0.3s ease forwards;
+      .menuItem {
+        font-size: 20px;
+        width: 100%;
+        height: auto;
+        padding: 15px 20px;
+        margin: 0;
         display: flex;
-        align-items: center;
-        gap: 20px;
-        @include md {
-            display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        &:last-child {
+          display: none;
         }
-        svg {
-            font-size: 18px;
-            color: white;
-        }
-        .headersearch{
-            background-color:transparent;
-            outline: none;
-            border-radius: 6px;
-            border: solid 1px rgba(255,255,255,0.6);
-            color:white;
-            height: 30px;
-            padding: 0 10px;
-            font-size: 14px;
-            width: 160px;
-        }
-        .Displaysearch{
-            display: none;
-        }
-        
+      }
     }
-
-    &.mobileView {
-        background: var(--black3);
-        .menuItems {
-            display: flex;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background: var(--black3);
-            flex-direction: column;
-            width: 100%;
-            padding: 20px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            animation: mobileMenu 0.3s ease forwards;
-            .menuItem {
-                font-size: 20px;
-                width: 100%;
-                height: auto;
-                padding: 15px 20px;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                &:last-child {
-                    display: none;
-                }
-            }
-        }
-    }
+  }
 }
 
 @keyframes mobileMenu {
-    0% {
-        transform: translateY(-130%);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(-130%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

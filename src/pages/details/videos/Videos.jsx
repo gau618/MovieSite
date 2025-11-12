@@ -23,14 +23,21 @@ const Videos = ({ data = [] }) => {
               }}
             >
               <div className="thumb">
-                <Img src={`https://img.youtube.com/vi/${v.key}/mqdefault.jpg`} />
+                <Img
+                  src={`https://img.youtube.com/vi/${v.key}/mqdefault.jpg`}
+                />
               </div>
               <div className="title">{v.name}</div>
             </div>
           ))}
         </div>
       </ContentWrapper>
-      <VideoPopup show={show} setShow={setShow} videoId={videoId} setVideoId={setVideoId} />
+      <VideoPopup
+        show={show}
+        setShow={setShow}
+        videoId={videoId}
+        setVideoId={setVideoId}
+      />
     </div>
   );
 };

@@ -56,7 +56,10 @@ function App() {
 
           <Route path="/:mediaType/:id" element={<Details></Details>} />
 
-          <Route path="/search/:query" element={<SearchResult></SearchResult>}/>
+          <Route
+            path="/search/:query"
+            element={<SearchResult></SearchResult>}
+          />
 
           <Route path="/explore/:mediaType" element={<Explore></Explore>} />
 

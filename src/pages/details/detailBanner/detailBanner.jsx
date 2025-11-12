@@ -8,7 +8,7 @@ import ContentWrapper from "../../../component/contentWrapper/contentWrapper.jsx
 import useFetch from "../../../costumhook/useFetch.jsx";
 import Genres from "../../../component/genres/genre.jsx";
 import Rating from "../../../component/Ratingbox/Rating.jsx";
- import Img from "../../../component/lazyLoadlmage/img.jsx";
+import Img from "../../../component/lazyLoadlmage/img.jsx";
 import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "../Playbtn";
 import VideoPopup from "../../../component/videoPopup/VideoPopup.jsx";
@@ -36,7 +36,6 @@ const DetailsBanner = ({ video, crew }) => {
     const minutes = totalMinutes % 60;
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
-
 
   return (
     <div className="detailsBanner">
@@ -114,7 +113,7 @@ const DetailsBanner = ({ video, crew }) => {
                         </div>
                       )}
                     </div>
-                      {director?.length > 0 && (
+                    {director?.length > 0 && (
                       <div className="info">
                         <span className="text bold">Director: </span>
                         <span className="text">

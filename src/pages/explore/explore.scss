@@ -1,57 +1,100 @@
 @import "../../mixins.scss";
 
-.exploreItems{
+.heroBanner {
+  width: 100%;
+  height: 360px;
+  background-color: var(--black);
+  display: flex;
+  align-items: center;
+  position: relative;
+  @include md {
+    height: 520px;
+  }
+  .backgroundimage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    overflow: hidden;
+    .lazy-load-image-background {
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .heroSkeleton {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .opacity-layer {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(180deg, rgba(4, 21, 45, 0) 0%, #04152d 80%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.exploreItems {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  @include md {
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    padding: 0px 30px;
+    margin-top: -200px;
+  }
+  .loadingSkeleton {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: hidden;
+    margin-right: -20px;
+    margin-left: -20px;
+    padding: 0 20px;
     @include md {
-        gap: 20px;
-        margin: 0;
-        padding: 0; 
-        padding: 0px 30px;
-        margin-top: -200px;
+      gap: 20px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
-    .loadingSkeleton {
+    .skeletonItem {
+      width: 125px;
+      @include md {
+        width: calc(25% - 70px);
+      }
+      @include lg {
+        width: calc(20% - 50px);
+      }
+      flex-shrink: 0;
+      .posterBlock {
+        border-radius: 12px;
+        width: 100%;
+        aspect-ratio: 1 / 1.5;
+        margin-bottom: 30px;
+      }
+      .textBlock {
         display: flex;
-        gap: 10px;
-        overflow-y: hidden;
-        margin-right: -20px;
-        margin-left: -20px;
-        padding: 0 20px;
-        @include md {
-            gap: 20px;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
+        flex-direction: column;
+        .title {
+          width: 100%;
+          height: 20px;
+          margin-bottom: 10px;
         }
-        .skeletonItem {
-            width: 125px;
-            @include md {
-                width: calc(25% - 70px);
-            }
-            @include lg {
-                width: calc(20% - 50px);
-            }
-            flex-shrink: 0;
-            .posterBlock {
-                border-radius: 12px;
-                width: 100%;
-                aspect-ratio: 1 / 1.5;
-                margin-bottom: 30px;
-            }
-            .textBlock {
-                display: flex;
-                flex-direction: column;
-                .title {
-                    width: 100%;
-                    height: 20px;
-                    margin-bottom: 10px;
-                }
-                .date {
-                    width: 75%;
-                    height: 20px;
-                }
-            }
+        .date {
+          width: 75%;
+          height: 20px;
         }
+      }
     }
+  }
 }

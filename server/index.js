@@ -5,11 +5,13 @@ import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 if (!GEMINI_API_KEY) {
-  console.warn("[AI Server] Missing GEMINI_API_KEY. Set it in a .env file at project root.");
+  console.warn(
+    "[AI Server] Missing GEMINI_API_KEY. Set it in a .env file at project root."
+  );
 }
 
 const app = express();
@@ -19,7 +21,8 @@ app.use(express.json());
 let model;
 try {
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY || "");
-  model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  // Prefer the "-latest" alias to avoid model/version mismatches
+  model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 } catch (e) {
   console.error("[AI Server] Failed to initialize Gemini:", e.message);
 }
@@ -38,7 +41,9 @@ function extractJson(text) {
   const end = text.lastIndexOf("}");
   if (start >= 0 && end > start) {
     const sliced = text.slice(start, end + 1);
-    try { return JSON.parse(sliced); } catch {}
+    try {
+      return JSON.parse(sliced);
+    } catch {}
   }
   return null;
 }
@@ -58,17 +63,19 @@ Return a compact JSON object with:
     "year": number | null,
     "sort_by": "popularity.desc" | "vote_average.desc" | "release_date.desc" | "first_air_date.desc",
     "vote_average_gte": number | null,
-    "include_adult": false,
-    "language": "en-US"
+  "include_adult": false,
+  "language": "en-US",
+  "with_origin_country": string | null,  // ISO 3166-1 alpha-2, e.g., "IN" for India
+  "with_original_language": string | null // ISO 639-1, e.g., "hi" for Hindi, "ta" Tamil
   }
 }
 Only return JSON. Infer mediaType from the request if specified, else choose what fits.
 Request: ${query}`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
     const parsed = extractJson(text);
-    if (parsed && typeof parsed === 'object') {
+    if (parsed && typeof parsed === "object") {
       return res.json(parsed);
     }
     // Fallback default if parsing fails
@@ -92,7 +99,8 @@ Request: ${query}`;
 app.post("/ai/summarize", async (req, res) => {
   try {
     const { title, overview, genresNames = [], rating } = req.body || {};
-    if (!overview && !title) return res.status(400).json({ error: "Missing content" });
+    if (!overview && !title)
+      return res.status(400).json({ error: "Missing content" });
     if (!model) return res.status(500).json({ error: "Model not initialized" });
 
     const prompt = `Create:
@@ -104,21 +112,29 @@ Genres: ${genresNames.join(", ")}
 Rating: ${rating ?? "N/A"}
 Overview: ${overview || ""}`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
     const parsed = extractJson(text);
-    if (parsed && typeof parsed === 'object') {
-      const summary = typeof parsed.summary === 'string' ? parsed.summary : null;
-      const why_like = typeof parsed.why_like === 'string' ? parsed.why_like : null;
-      if (summary || why_like) return res.json({ summary: summary || "", why_like: why_like || "" });
+    if (parsed && typeof parsed === "object") {
+      const summary =
+        typeof parsed.summary === "string" ? parsed.summary : null;
+      const why_like =
+        typeof parsed.why_like === "string" ? parsed.why_like : null;
+      if (summary || why_like)
+        return res.json({ summary: summary || "", why_like: why_like || "" });
     }
     // Try to salvage lines from plain text
     let summaryLine = "";
     let whyLine = "";
-    const lines = (text || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+    const lines = (text || "")
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean);
     for (const l of lines) {
-      if (!summaryLine && /summary/i.test(l)) summaryLine = l.replace(/summary\s*[:\-]\s*/i, "");
-      if (!whyLine && /(why|you might like)/i.test(l)) whyLine = l.replace(/(why( you might like)?)[\s:,-]*/i, "");
+      if (!summaryLine && /summary/i.test(l))
+        summaryLine = l.replace(/summary\s*[:\-]\s*/i, "");
+      if (!whyLine && /(why|you might like)/i.test(l))
+        whyLine = l.replace(/(why( you might like)?)[\s:,-]*/i, "");
     }
     if (!summaryLine && text) summaryLine = text.slice(0, 220);
     return res.json({ summary: summaryLine || "", why_like: whyLine || "" });

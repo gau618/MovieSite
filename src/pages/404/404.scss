@@ -1,13 +1,69 @@
 .not-found {
-  text-align: center;
-  padding: 50px;
-}
-
-.not-found h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.not-found p {
-  font-size: 18px;
+  position: relative;
+  min-height: calc(100vh - 120px); // header+footer accounted in layout
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  .bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      1200px 600px at 50% 0%,
+      rgba(218, 47, 104, 0.15),
+      transparent 60%
+    );
+  }
+  .card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 560px;
+    margin: 0 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  .code {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #da2f68;
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 26px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .desc {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 18px;
+  }
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .actions .primary {
+    background: #da2f68;
+    color: #0b0f19;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .actions .secondary {
+    background: transparent;
+    color: #e5e7eb;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
